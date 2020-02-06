@@ -16,6 +16,8 @@ const app = express();
 
 // event handler
 function handleEvent(event) {
+  console.log(event.type);
+  console.log(event.message.text);
   switch (event.type) {
     case 'follow':
       return client.replyMessage(event.replyToken, {
@@ -29,7 +31,8 @@ function handleEvent(event) {
       });
     default:
       return client.replyMessage(event.replyToken, {
-        type: 'text', text: event.message.text,
+        type: 'text',
+        text: event.message.text,
       });
   }
 }
