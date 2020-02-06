@@ -16,16 +16,22 @@ const app = express();
 
 // event handler
 function handleEvent(event) {
-  if (event.type !== 'message' || event.message.type !== 'text') {
-    // ignore non-text-message event
-    return Promise.resolve(null);
+  switch (event.type) {
+    case 'follow':
+      return client.replyMessage(event.replyToken, {
+        type: 'text',
+        text: '你好請問我們認識嗎?',
+      });
+    case 'unfollow':
+      return client.replyMessage(event.replyToken, {
+        type: 'text',
+        text: 'bye bye',
+      });
+    default:
+      return client.replyMessage(event.replyToken, {
+        type: 'text', text: event.message.text,
+      });
   }
-
-  // create a echoing text message
-  const echo = { type: 'text', text: event.message.text };
-
-  // use reply API
-  return client.replyMessage(event.replyToken, echo);
 }
 
 // register a webhook handler with middleware
@@ -41,7 +47,6 @@ app.post('/', line.middleware(config), (req, res) => {
 });
 
 // listen on port
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`listening on ${port}`);
+app.listen(3000, () => {
+  console.log('listening on 3000');
 });
