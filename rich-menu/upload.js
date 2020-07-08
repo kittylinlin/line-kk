@@ -9,5 +9,5 @@ const client = new line.Client({
 });
 
 const filePath = path.join(__dirname, '/rich-menu-2.png');
-client.setRichMenuImage('richmenu-217ec2841b62b807de02b0ac1fa0c2c3', fs.createReadStream(filePath))
+client.setRichMenuImage('richmenu-8659428868df4227364ebab3b288bc4b', fs.createReadStream(filePath))
   .catch((error) => console.log(error));

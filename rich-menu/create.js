@@ -25,8 +25,8 @@ const richmenu = {
         height: 843,
       },
       action: {
-        type: 'message',
-        text: 'bus',
+        type: 'postback',
+        data: 'feature=bus',
       },
     },
     {
@@ -37,15 +37,17 @@ const richmenu = {
         height: 840,
       },
       action: {
-        type: 'message',
-        text: 'weather',
+        type: 'postback',
+        data: 'feature=weather',
       },
     },
   ],
 };
 
 client.createRichMenu(richmenu)
-  .then((richMenuId) => console.log({ richMenuId }))
+  .then((richMenuId) => {
+    console.log({ richMenuId });
+  })
   .catch((error) => {
     console.log({
       statusCode: error.statusCode,

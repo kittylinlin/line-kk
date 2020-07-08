@@ -6,5 +6,5 @@ const client = new line.Client({
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
 });
 
-client.deleteRichMenu('richmenu-217ec2841b62b807de02b0ac1fa0c2c3')
+client.deleteRichMenu('richmenu-3bf967674afd1c6d367416203b82491e')
   .catch((error) => console.log(error));

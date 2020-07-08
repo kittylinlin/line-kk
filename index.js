@@ -1,7 +1,10 @@
-const line = require('@line/bot-sdk');
-const express = require('express');
-
 require('dotenv').config();
+
+const express = require('express');
+const line = require('@line/bot-sdk');
+const { postbackHandler } = require('./handlers/postback');
+const { messageHandler } = require('./handlers/message');
+
 
 // create LINE SDK config from env variables
 const config = {
@@ -17,13 +20,17 @@ const client = new line.Client(config);
 const app = express();
 
 // event handler
-function handleEvent(event) {
+async function handleEvent(event) {
   switch (event.type) {
     case 'follow':
       return client.replyMessage(event.replyToken, {
         type: 'text',
         text: 'Welcome!',
       });
+    case 'postback':
+      return client.replyMessage(event.replyToken, postbackHandler(event));
+    case 'message':
+      return client.replyMessage(event.replyToken, await messageHandler(event));
     default:
       return client.replyMessage(event.replyToken, {
         type: 'text',
